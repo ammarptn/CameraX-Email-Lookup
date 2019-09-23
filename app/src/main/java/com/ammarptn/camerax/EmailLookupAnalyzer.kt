@@ -107,7 +107,9 @@ class EmailLookupAnalyzer(var context: Context, var callback: OnEmailLookupListe
 
             if (emailMatcher.find()) {
                 val email = emailMatcher.group(0)
-                callback.onFound(email)
+                callback.let {
+                    callback.onFound(email)
+                }
                 Log.d("EmailLookup", "email found :$email")
             } else {
                 Log.d("EmailLookup", "email not found")
