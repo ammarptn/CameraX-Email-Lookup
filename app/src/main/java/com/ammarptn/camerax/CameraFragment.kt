@@ -1,6 +1,7 @@
 package com.ammarptn.camerax
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
@@ -76,6 +77,21 @@ class CameraFragment : Fragment() {
 
                 }
             }).check()
+
+        rootView!!.textPreview.setOnClickListener {
+            val email = rootView!!.textPreview.text.toString().trim()
+            if (email.isNotEmpty()) {
+                val emailIntent = Intent(
+                    Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto", email, null
+                    )
+                )
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "")
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+                startActivity(Intent.createChooser(emailIntent, "Send email..."))
+            }
+
+        }
 
         return rootView
     }
